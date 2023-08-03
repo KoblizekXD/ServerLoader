@@ -14,7 +14,6 @@ abstract class CleanDirectoryTask : DefaultTask() {
 
     @TaskAction
     fun clean() {
-
         val file: File = File(project.projectDir.path, "/runServer")
         if (file.exists()) file.delete()
         Files.createDirectory(file.toPath())

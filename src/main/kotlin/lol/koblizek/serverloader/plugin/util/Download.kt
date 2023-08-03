@@ -6,7 +6,7 @@ import java.net.URL
 import java.nio.channels.Channels
 
 class Download(url: String, saveIn: String) {
-    private val file: File
+    val file: File
 
     init {
         val uri = URL(url)

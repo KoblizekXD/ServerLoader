@@ -26,7 +26,7 @@ abstract class SetupPaperServerTask : DefaultTask() {
                 .asJsonObject.getAsJsonPrimitive("build")
                 .asInt
             val url = "https://api.papermc.io/v2/projects/paper/versions/${ServerLoaderPlugin.version}/builds/$buildNumber/downloads/paper-${ServerLoaderPlugin.version}-$buildNumber.jar"
-            Download(url, ServerLoaderPlugin.getRuntimeDirectory().path)
+            Download(url, ServerLoaderPlugin.getRuntimeDirectory().path + "/server.jar")
         } else {
             throw RuntimeException("version field must be initialized!")
         }

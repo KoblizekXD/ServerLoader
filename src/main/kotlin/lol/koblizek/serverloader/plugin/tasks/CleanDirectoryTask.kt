@@ -1,7 +1,6 @@
 package lol.koblizek.serverloader.plugin.tasks
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.Directory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.nio.file.Files
@@ -15,7 +14,18 @@ abstract class CleanDirectoryTask : DefaultTask() {
     @TaskAction
     fun clean() {
         val file: File = File(project.projectDir.path, "/runServer")
-        if (file.exists()) file.delete()
+        if (file.exists()) deleteDir(file)
         Files.createDirectory(file.toPath())
+    }
+    fun deleteDir(file: File) {
+        val contents = file.listFiles()
+        if (contents != null) {
+            for (f in contents) {
+                if (!Files.isSymbolicLink(f.toPath())) {
+                    deleteDir(f)
+                }
+            }
+        }
+        file.delete()
     }
 }

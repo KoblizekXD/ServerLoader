@@ -4,7 +4,7 @@ plugins {
     `java-gradle-plugin`
 }
 
-group = "org.example"
+group = "lol.koblizek"
 version = "1.0-SNAPSHOT"
 
 repositories {

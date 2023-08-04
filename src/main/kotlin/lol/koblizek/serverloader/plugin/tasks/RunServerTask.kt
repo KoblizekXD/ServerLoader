@@ -12,11 +12,6 @@ abstract class RunServerTask : JavaExec() {
         workingDir = ServerLoaderPlugin.getRuntimeDirectory()
         jvmArgs("-Xmx2G")
         args("-nogui")
-    }
-
-    @TaskAction
-    fun run() {
-        val process: Process = ProcessBuilder("java", "-Xmx2G -jar ./server.jar -nogui")
-            .directory(ServerLoaderPlugin.getRuntimeDirectory()).start()
+        setStandardInput(System.`in`)
     }
 }

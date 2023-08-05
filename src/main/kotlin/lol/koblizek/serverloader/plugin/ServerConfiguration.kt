@@ -6,6 +6,7 @@ class ServerConfiguration {
     /**
      * Supports following servers:
      * - PaperMC(paper)
+     * - PurpurMC(purpur)
      */
     lateinit var type: String
 }

@@ -13,10 +13,16 @@ abstract class SetupServerTask : DefaultTask() {
     @TaskAction
     fun setup() {
         if (ServerLoaderPlugin.areInitialized()) {
-            if (ServerLoaderPlugin.serverType == "paper") {
-                finalizedBy(ServerLoaderPlugin.setupPaperServerTask)
-            } else {
-                throw RuntimeException("Unsupported server type")
+            when (ServerLoaderPlugin.serverType) {
+                "paper" -> {
+                    finalizedBy(ServerLoaderPlugin.setupPaperServerTask)
+                }
+                "purpur" -> {
+                    finalizedBy(ServerLoaderPlugin.setupPurpurServerTask)
+                }
+                else -> {
+                    throw RuntimeException("Unsupported server type")
+                }
             }
         } else {
             throw RuntimeException("fields must be initialized!")

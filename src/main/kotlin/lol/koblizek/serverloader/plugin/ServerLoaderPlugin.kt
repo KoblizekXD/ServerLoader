@@ -11,7 +11,7 @@ class ServerLoaderPlugin : Plugin<Project> {
         cleanDirectoryTask = project.tasks.register("cleanDirectories", CleanDirectoryTask::class.java).get()
         setupPaperServerTask = project.tasks.register("setupPaper", SetupPaperServerTask::class.java).get()
         setupPurpurServerTask = project.tasks.register("setupPurpur", SetupPurpurServerTask::class.java).get()
-        setupServerTask = project.tasks.register("setupPaper", SetupServerTask::class.java).get()
+        setupServerTask = project.tasks.register("setupServer", SetupServerTask::class.java).get()
         project.tasks.register("runServer", RunServerTask::class.java)
     }
     companion object {

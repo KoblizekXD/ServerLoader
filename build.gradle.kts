@@ -36,6 +36,10 @@ publishing {
     }
     repositories {
         mavenLocal()
+        maven {
+            name = "jopgamerRepoReleases"
+            url = uri("https://repo.jopga.me/releases")
+        }
     }
 }
 gradlePlugin {

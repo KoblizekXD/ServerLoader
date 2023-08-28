@@ -16,11 +16,11 @@ class ServerLoaderPlugin : Plugin<Project> {
         movePluginTask = project.tasks.create("movePlugin", MovePluginTask::class.java)
 
         if (autoMove) {
-            project.task("build")
+            project.tasks.getByName("build")
                 .finalizedBy(movePluginTask)
         }
 
-        project.tasks.register("runServer", RunServerTask::class.java)
+        runServerTask = project.tasks.create("runServer", RunServerTask::class.java)
     }
     companion object {
         lateinit var cleanDirectoryTask: CleanDirectoryTask
@@ -28,6 +28,7 @@ class ServerLoaderPlugin : Plugin<Project> {
         lateinit var setupPurpurServerTask: SetupPurpurServerTask
         lateinit var setupServerTask: SetupServerTask
         lateinit var movePluginTask: MovePluginTask
+        lateinit var runServerTask: RunServerTask
 
         lateinit var project: Project
 

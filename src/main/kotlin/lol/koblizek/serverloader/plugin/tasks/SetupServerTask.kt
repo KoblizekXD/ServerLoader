@@ -15,11 +15,13 @@ abstract class SetupServerTask : DefaultTask() {
         if (ServerLoaderPlugin.areInitialized()) {
             when (ServerLoaderPlugin.serverType) {
                 "paper" -> {
-                    finalizedBy(ServerLoaderPlugin.setupPaperServerTask)
+                    ServerLoaderPlugin.setupPaperServerTask.setup()
                 }
+
                 "purpur" -> {
-                    finalizedBy(ServerLoaderPlugin.setupPurpurServerTask)
+                    ServerLoaderPlugin.setupPurpurServerTask.setup()
                 }
+
                 else -> {
                     throw RuntimeException("Unsupported server type")
                 }

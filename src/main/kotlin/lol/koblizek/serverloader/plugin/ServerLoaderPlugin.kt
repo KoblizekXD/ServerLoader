@@ -15,8 +15,10 @@ class ServerLoaderPlugin : Plugin<Project> {
         setupServerTask = project.tasks.create("setupServer", SetupServerTask::class.java)
         movePluginTask = project.tasks.create("movePlugin", MovePluginTask::class.java)
 
-        project.task("build")
-            .finalizedBy(movePluginTask)
+        if (autoMove) {
+            project.task("build")
+                .finalizedBy(movePluginTask)
+        }
 
         project.tasks.register("runServer", RunServerTask::class.java)
     }

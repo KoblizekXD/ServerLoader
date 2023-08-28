@@ -9,4 +9,6 @@ class ServerConfiguration {
      * - PurpurMC(purpur)
      */
     lateinit var type: String
+    var autoMove: Boolean = true
+    var autoReload: Boolean = false
 }

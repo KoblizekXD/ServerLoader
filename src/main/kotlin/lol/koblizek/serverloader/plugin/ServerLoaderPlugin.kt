@@ -4,14 +4,20 @@ import lol.koblizek.serverloader.plugin.tasks.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import java.io.File
+import kotlin.properties.Delegates
 
 class ServerLoaderPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         ServerLoaderPlugin.project = project
-        cleanDirectoryTask = project.tasks.register("cleanDirectories", CleanDirectoryTask::class.java).get()
-        setupPaperServerTask = project.tasks.register("setupPaper", SetupPaperServerTask::class.java).get()
-        setupPurpurServerTask = project.tasks.register("setupPurpur", SetupPurpurServerTask::class.java).get()
-        setupServerTask = project.tasks.register("setupServer", SetupServerTask::class.java).get()
+        cleanDirectoryTask = project.tasks.create("cleanDirectories", CleanDirectoryTask::class.java)
+        setupPaperServerTask = project.tasks.create("setupPaper", SetupPaperServerTask::class.java)
+        setupPurpurServerTask = project.tasks.create("setupPurpur", SetupPurpurServerTask::class.java)
+        setupServerTask = project.tasks.create("setupServer", SetupServerTask::class.java)
+        movePluginTask = project.tasks.create("movePlugin", MovePluginTask::class.java)
+
+        project.task("build")
+            .finalizedBy(movePluginTask)
+
         project.tasks.register("runServer", RunServerTask::class.java)
     }
     companion object {
@@ -19,11 +25,14 @@ class ServerLoaderPlugin : Plugin<Project> {
         lateinit var setupPaperServerTask: SetupPaperServerTask
         lateinit var setupPurpurServerTask: SetupPurpurServerTask
         lateinit var setupServerTask: SetupServerTask
+        lateinit var movePluginTask: MovePluginTask
 
         lateinit var project: Project
 
         lateinit var version: String
         lateinit var serverType: String
+        var autoMove: Boolean = true
+        var autoReload: Boolean = false
 
         fun areInitialized(): Boolean {
             return ::version.isInitialized
@@ -38,4 +47,6 @@ fun server(config: ServerConfiguration.() -> Unit) {
     cfg.config()
     ServerLoaderPlugin.version = cfg.version
     ServerLoaderPlugin.serverType = cfg.type
+    ServerLoaderPlugin.autoMove = cfg.autoMove
+    ServerLoaderPlugin.autoReload = cfg.autoReload
 }

@@ -8,6 +8,7 @@ abstract class SetupServerTask : DefaultTask() {
     init {
         group = "serverloader"
         description = "Downloads and prepares server based on version specified in server block"
+        dependsOn(ServerLoaderPlugin.cleanDirectoryTask)
     }
 
     @TaskAction
